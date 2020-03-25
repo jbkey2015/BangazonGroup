@@ -8,16 +8,15 @@ namespace PlanYourHeist
     {
         static void Main(string[] args)
         {
-            List<TeamMember> myTeam = new List<TeamMember>();
             // this is something called a "TUPLE" whatever that is
-            // List<(string name, int skilllevel, decimal couragefactor)> heistskillz = new List<(string, int, decimal)>();
+            //List<(string name, int skilllevel, decimal couragefactor)> heistskillz = new List<(string, int, decimal)>();
+            List<TeamMember> myTeam = new List<TeamMember>();
+            var banksDifficultyLevel = 100;
 
             Console.WriteLine("Plan Your Heist!");
 
             Console.WriteLine("How many members are on your team?");
             var tMCapacity = Console.ReadLine();
-
-            var banksDifficultyLevel = 100;
 
             int i = 0;
             do
@@ -46,7 +45,7 @@ namespace PlanYourHeist
                     tMCourageFactor = Convert.ToDecimal(tMCourage);
                 }
 
-                // heistskillz.Add((name: tMName, skilllevel: tMSkillFactor, couragefactor: tMCourageFactor));
+                //heistskillz.Add((name: tMName, skilllevel: tMSkillFactor, couragefactor: tMCourageFactor));
                 myTeam.Add(new TeamMember(tMName, tMSkillFactor, tMCourageFactor));
 
                 Console.WriteLine($"{tMName} has a skill level of {tMSkillFactor} and a courage factor of {tMCourageFactor}, and has been added to your team!");
@@ -61,13 +60,23 @@ namespace PlanYourHeist
             foreach (var skill in myTeam)
             {
                 Console.WriteLine($"{skill.Name}: {skill.SkillLevel},  {skill.CourageFactor}");
-
             }
+
+            Console.ReadLine();
 
             Console.Clear();
 
             var sumSkillLevel = myTeam.Select(level => level.SkillLevel).Sum();
-            if(sumSkillLevel >= banksDifficultyLevel)
+            Console.WriteLine(sumSkillLevel);
+
+            var random = new Random();
+            var luckValue = random.Next(-10, 10);
+
+            banksDifficultyLevel += luckValue;
+
+            Console.WriteLine($"Your teams combined skill level is {sumSkillLevel}. The bank dificulty level is {banksDifficultyLevel}.");
+
+            if (sumSkillLevel >= banksDifficultyLevel)
             {
                 Console.WriteLine("Success");
             }
@@ -75,6 +84,11 @@ namespace PlanYourHeist
             {
                 Console.WriteLine("Failure");
             }
+
+
+
+
+
 
 
             Console.ReadLine();
