@@ -9,14 +9,17 @@ namespace PlanYourHeist
         static void Main(string[] args)
         {
             // this is something called a "TUPLE" whatever that is
+            // according to Martin it's a random container for a variety of different things that are also different types
             //List<(string name, int skilllevel, decimal couragefactor)> heistskillz = new List<(string, int, decimal)>();
+
             List<TeamMember> myTeam = new List<TeamMember>();
-            var banksDifficultyLevel = 100;
 
             Console.WriteLine("Plan Your Heist!");
 
             Console.WriteLine("How many members are on your team?");
             var tMCapacity = Console.ReadLine();
+
+            var banksDifficultyLevel = 100;
 
             int i = 0;
             do
@@ -50,7 +53,6 @@ namespace PlanYourHeist
 
                 Console.WriteLine($"{tMName} has a skill level of {tMSkillFactor} and a courage factor of {tMCourageFactor}, and has been added to your team!");
                 i++;
-                Console.ReadLine();
 
             }
             while (i < Int32.Parse(tMCapacity));
@@ -59,39 +61,43 @@ namespace PlanYourHeist
 
             foreach (var skill in myTeam)
             {
-                Console.WriteLine($"{skill.Name}: {skill.SkillLevel},  {skill.CourageFactor}");
+                Console.WriteLine($"{skill.Name}: Level {skill.SkillLevel},  Courage:{skill.CourageFactor}");
             }
 
-            Console.ReadLine();
+            Console.WriteLine("How many times would you like to attempt to rob the bank?");
+            var attempts = Console.ReadLine();
 
             Console.Clear();
 
             var sumSkillLevel = myTeam.Select(level => level.SkillLevel).Sum();
-            Console.WriteLine(sumSkillLevel);
+            Console.WriteLine($"Your combined skill level is:{sumSkillLevel}");
 
-            var random = new Random();
-            var luckValue = random.Next(-10, 10);
+            int j = 0;
 
-            banksDifficultyLevel += luckValue;
-
-            Console.WriteLine($"Your teams combined skill level is {sumSkillLevel}. The bank dificulty level is {banksDifficultyLevel}.");
-
-            if (sumSkillLevel >= banksDifficultyLevel)
+            do
             {
-                Console.WriteLine("Success");
+                var random = new Random();
+                var luckValue = random.Next(-10, 10);
+
+                banksDifficultyLevel += luckValue;
+
+                Console.WriteLine($"Your teams combined skill level is {sumSkillLevel}. The bank dificulty level is {banksDifficultyLevel}.");
+
+                if (sumSkillLevel >= banksDifficultyLevel)
+                {
+                    Console.WriteLine("You succeded!");
+                }
+                else
+                {
+                    Console.WriteLine("You failed!");
+                }
+                j++;
+
             }
-            else
-            {
-                Console.WriteLine("Failure");
-            }
+            while (j < Int32.Parse(attempts));
 
 
-
-
-
-
-
-            Console.ReadLine();
+            Console.ReadKey();
         }
     }
 }
