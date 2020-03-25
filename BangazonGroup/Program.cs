@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PlanYourHeist
 {
@@ -7,13 +8,16 @@ namespace PlanYourHeist
     {
         static void Main(string[] args)
         {
+            List<TeamMember> myTeam = new List<TeamMember>();
             // this is something called a "TUPLE" whatever that is
-            List<(string name, int skilllevel, decimal couragefactor)> heistskillz = new List<(string, int, decimal)>();
+            // List<(string name, int skilllevel, decimal couragefactor)> heistskillz = new List<(string, int, decimal)>();
 
             Console.WriteLine("Plan Your Heist!");
 
             Console.WriteLine("How many members are on your team?");
             var tMCapacity = Console.ReadLine();
+
+            var banksDifficultyLevel = 100;
 
             int i = 0;
             do
@@ -42,7 +46,8 @@ namespace PlanYourHeist
                     tMCourageFactor = Convert.ToDecimal(tMCourage);
                 }
 
-                heistskillz.Add((name: tMName, skilllevel: tMSkillFactor, couragefactor: tMCourageFactor));
+                // heistskillz.Add((name: tMName, skilllevel: tMSkillFactor, couragefactor: tMCourageFactor));
+                myTeam.Add(new TeamMember(tMName, tMSkillFactor, tMCourageFactor));
 
                 Console.WriteLine($"{tMName} has a skill level of {tMSkillFactor} and a courage factor of {tMCourageFactor}, and has been added to your team!");
                 i++;
@@ -53,11 +58,24 @@ namespace PlanYourHeist
 
             Console.WriteLine($"You have {tMCapacity} team members! ");
 
-            foreach (var skill in heistskillz)
+            foreach (var skill in myTeam)
             {
-                Console.WriteLine($"{skill.name}: {skill.skilllevel},  {skill.couragefactor}");
+                Console.WriteLine($"{skill.Name}: {skill.SkillLevel},  {skill.CourageFactor}");
 
             }
+
+            Console.Clear();
+
+            var sumSkillLevel = myTeam.Select(level => level.SkillLevel).Sum();
+            if(sumSkillLevel >= banksDifficultyLevel)
+            {
+                Console.WriteLine("Success");
+            }
+            else
+            {
+                Console.WriteLine("Failure");
+            }
+
 
             Console.ReadLine();
         }
