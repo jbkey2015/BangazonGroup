@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlanYourHeist;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -98,11 +99,11 @@ namespace TeamHeist
                 var random = new Random();
                 var luckValue = random.Next(-10, 10);
 
-                bankDifficultyLevel += luckValue;
+                var newDifficultyLevel = bankDifficultyLevel + luckValue;
 
-                Console.WriteLine($"Your teams combined skill level is {sumSkillLevel}. The bank dificulty level is {bankDifficultyLevel}.");
+                Console.WriteLine($"Your teams combined skill level is {sumSkillLevel}. The bank dificulty level is {newDifficultyLevel}.");
 
-                if (sumSkillLevel >= bankDifficultyLevel)
+                if (sumSkillLevel >= newDifficultyLevel)
                 {
                     Console.WriteLine("You succeeded!");
                     success += 1;
